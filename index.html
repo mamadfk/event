@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دعوت‌نامه رویداد ویژه</title>
+    <style>
+           @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700&display=swap');
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Vazirmatn', sans-serif;
+            /* background-color: #1a1a2e;  این خط حذف یا کامنت می‌شود */
+            color: #e0e0e0;
+            overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        /* ========== جدید: استایل برای تصویر پس‌زمینه بلور شده ========== */
+        .background-blur-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('CenterPagePark.jpg'); /* <<< آدرس عکس پس‌زمینه خود را اینجا بگذارید */
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            filter: blur(8px); /* <<< میزان بلور را تنظیم کنید */
+            z-index: -2; /* باید پشت پارتیکل‌ها و محتوا باشد */
+            /* برای جلوگیری از دیده‌شدن لبه‌های تیز قبل از اعمال بلور کامل */
+            transform: scale(1.05); 
+        }
+        /* ============================================================= */
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1; /* حالا این باید روی تصویر بلور شده و پشت محتوا باشد */
+        }
+
+        .invitation-container {
+            /* می‌توانید رنگ پس‌زمینه کانتینر را کمی تیره‌تر یا شفاف‌تر کنید تا متن روی تصویر بلور شده خواناتر باشد */
+            background-color: rgba(99, 99, 99, 0.775); /* مثال: آبی خیلی تیره و نیمه‌شفاف */
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.5);
+            max-width: 700px;
+            width: 90%;
+            z-index: 1; /* باید روی همه چیز باشد */
+            animation: fadeInScaleUp 1s ease-out forwards;
+        }
+
+        /* ... بقیه استایل‌های CSS بدون تغییر باقی می‌مانند ... */
+
+        @keyframes fadeInScaleUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .event-image-wrapper {
+            width: 100%;
+            aspect-ratio: 16 / 11;
+            overflow: hidden;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+            animation: imageEntrance 1.2s ease-out 0.3s forwards;
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        
+        @keyframes imageEntrance {
+            from {
+                opacity: 0;
+                transform: scale(0.9) rotate(-5deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .event-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        h1 {
+            color: #f9a826;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            animation: textPopIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0.6s forwards;
+            opacity: 0;
+        }
+
+        @keyframes textPopIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            animation: textPopIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0.8s forwards;
+            opacity: 0;
+        }
+        
+        .event-details {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #f9a826;
+            margin-bottom: 30px;
+            animation: textPopIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) 1s forwards;
+            opacity: 0;
+        }
+
+        .calendar-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-family: 'Vazirmatn', sans-serif;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            animation: buttonAppear 0.7s ease-out 1.2s forwards;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        @keyframes buttonAppear {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0px);
+            }
+        }
+
+        .calendar-button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        .calendar-button:active {
+            transform: scale(0.98);
+        }
+
+        .footer-credit {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8em;
+            color: #aaa;
+            z-index: 2;
+        }
+        .footer-credit a {
+            color: #f9a826;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+     <div class="background-blur-image"></div> <!-- این المان اضافه شده -->
+    <div class="invitation-container">
+        <div class="event-image-wrapper">
+            <!-- لینک عکس رویداد خود را اینجا قرار دهید -->
+            <img src="img.png" alt="تصویر رویداد">
+            <!-- برای مثال از یک تصویر تصادفی استفاده شده. می‌توانید از سایتی مثل unsplash.com عکس پیدا کنید -->
+        </div>
+
+        <h1>شما دعوتید!</h1>
+        <p>به اولین نمایشگاه بین المللی بورس ، بانک ، بیمه ، خصوصی سازی و معرفی فرصت های سرمایه گذاری مشهد</p>
+        <p class="event-details">
+             تاریخ: ۳۱ اردیبهشت تا 3 خراداد<br>
+            زمان: ساعت 16 الی 21 <br>
+            مکان: [نمایش گاه بین المللی مشهد، سالن فردوسی]
+        </p>
+        <p>منتظر حضور گرم شما هستیم تا لحظاتی به‌یادماندنی را در کنار هم تجربه کنیم.</p>
+        
+        <button id="addToCalendarBtn" class="calendar-button">
+            افزودن به تقویم گوگل
+        </button>
+    </div>
+    
+    <div class="footer-credit">
+      طراح محمد رضا فکور بافنده - واحد توسعه فناوری پارک
+    </div>
+
+
+    <!-- کتابخانه particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 80, // تعداد پارتیکل‌ها
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": ["#f9a826", "#4CAF50", "#ffffff", "#90caf9"] // رنگ‌های پارتیکل
+                },
+                "shape": {
+                    "type": "circle", // یا "star", "edge", "triangle", "polygon"
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.6,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#555555", // رنگ خطوط بین پارتیکل‌ها
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 3, // سرعت حرکت
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab" // یا "repulse", "bubble"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push" // یا "remove"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+
+        // تابع برای افزودن به تقویم گوگل
+        document.getElementById('addToCalendarBtn').addEventListener('click', function() {
+            // تاریخ شمسی: ۳۱ اردیبهشت
+            // برای تبدیل به میلادی، باید سال را مشخص کنیم. فرض می‌کنیم سال جاری یا آینده نزدیک است.
+            // ۳۱ اردیبهشت ۱۴۰۳ معادل ۲۰ می ۲۰۲۴ است.
+            // ۳۱ اردیبهشت ۱۴۰۴ معادل ۲۰ می ۲۰۲۵ است.
+            // ما سال 1404 شمسی (2025 میلادی) را در نظر می‌گیریم چون ۳۱ اردیبهشت ۱۴۰۳ گذشته.
+            
+            const eventYear = 2025; // سال میلادی
+            const eventMonth = 5;   // ماه میلادی (می) - (ژانویه=1, ... , می=5)
+            const eventDay = 20;    // روز میلادی
+            
+            // زمان شروع و پایان را به فرمت YYYYMMDDTHHMMSSZ (UTC) یا YYYYMMDDTHHMMSS (محلی) وارد کنید
+            // مثال: ساعت 18:00 به وقت محلی
+            const startTimeHour = 18;
+            const startTimeMinute = 0;
+            // فرض می‌کنیم رویداد ۲ ساعت طول می‌کشد
+            const endTimeHour = 20;
+            const endTimeMinute = 0;
+
+            // تابع کمکی برای فرمت کردن تاریخ و زمان (مطمئن شدن از دو رقمی بودن)
+            function formatDateComponent(num) {
+                return num < 10 ? '0' + num : num;
+            }
+
+            // تاریخ شروع: 20250520T180000
+            const startDate = `${eventYear}${formatDateComponent(eventMonth)}${formatDateComponent(eventDay)}`;
+            const startTime = `${formatDateComponent(startTimeHour)}${formatDateComponent(startTimeMinute)}00`;
+            
+            // تاریخ پایان: 20250520T200000
+            const endDate = startDate; // اگر رویداد در همان روز تمام می‌شود
+            const endTime = `${formatDateComponent(endTimeHour)}${formatDateComponent(endTimeMinute)}00`;
+
+            const eventName = encodeURIComponent("اولین نمایشگاه بین المللی بورس ، بانک ، بیمه ، خصوصی سازی و معرفی فرصت های سرمایه گذاری مشه"); // نام رویداد
+            const eventDetails = encodeURIComponent("نمایش گاه از 31 اردیبهشت تا 3 خرداد از ساعت 16 برقرار است "); // توضیحات رویداد
+            const eventLocation = encodeURIComponent(" نمایشگاه بین المللی مشهد سالن فردوسی "); // مکان رویداد
+            
+            // فرمت تاریخ برای گوگل: YYYYMMDDTHHMMSS/YYYYMMDDTHHMMSS
+            // اگر می‌خواهید از UTC استفاده کنید، به انتهای هر تاریخ Z اضافه کنید و زمان‌ها را به UTC تبدیل کنید.
+            // در اینجا از زمان محلی استفاده می‌کنیم.
+            const googleCalendarUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${eventName}&dates=${startDate}T${startTime}/${endDate}T${endTime}&details=${eventDetails}&location=${eventLocation}&sf=true&output=xml`;
+            
+            // برای اطمینان از عملکرد در مرورگرهای مختلف و جلوگیری از بلاک شدن پاپ‌آپ
+            window.open(googleCalendarUrl, '_blank');
+        });
+    </script>
+</body>
+</html>
